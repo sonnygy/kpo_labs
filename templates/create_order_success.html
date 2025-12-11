@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Заявка успешно создана - Сервис ремонта техники{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class = "success-container">
+        <div class="success-img">
+            <img src="{% static 'images/success_request.png' %}" alt="Успешно">
+        </div>
+        <h2>Заявка успешно создана!</h2>
+        <p>Спасибо за обращение в наш сервис. Мы свяжемся с вами в ближайшее время.</p>
+        <a href="{% url 'request_list' %}" class="btn">Посмотреть заявки</a>
+        < div class="success-buttons_home">
+        <a href="{% url 'home' %}" class="btn">Главная</a>
+        </div>
+</div>
+    

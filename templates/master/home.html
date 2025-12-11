@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Сервис ремонта техники{% endblock %}
+
+{% block navigation %}
+{% include "includes/nav_master.html" %}
+{% endblock %}
+
+{% block content %}
+<h2>Добро пожаловать!</h2>
+<p>Система управления заявками на ремонт техники.</p>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ total_requests }}</h3>
+        <p>Всего заявок</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ wait_requests }}</h3>
+        <p>В ожидании</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ new_requests }}</h3>
+        <p>Новые заявки</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ in_progress }}</h3>
+        <p>В работе</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ cancelled }}</h3>
+        <p>Отменены</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ completed }}</h3>
+        <p>Завершено</p>
+    </div>
+</div>
+
+<h3 style="margin-top: 30px;">Последние заявки</h3>
+{% if recent_requests %}
+<table>
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Клиент</th>
+            <th>Устройство</th>
+            <th>Статус</th>
+            <th>Дата</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in recent_requests %}
+        <tr>
+            <td>{{ req.id }}</td>
+            <td>{{ req.client_name }}</td>
+            <td>{{ req.device }}</td>
+            <td><span class="status {{ req.status }}">{{ req.get_status_display }}</span></td>
+            <td>{{ req.created_at|date:"d.m.Y H:i" }}</td>
+            <td><a href="{% url 'request_detail' req.id %}" class="btn">Подробнее</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Заявок пока нет.</p>
+{% endblock %}

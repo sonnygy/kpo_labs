@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Заявка #{{ order.number }} - Сервис ремонта{% endblock %}
+
+{% block navigation %}
+    {% include 'nav/nav_master.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h2>Заявка #{{ order.number }}</h2>
+
+<div class="card-block">
+    <p><strong>Статус:</strong>
+        <span class="status {{ order.status }}">{{ order.get_status_display }}</span>
+    </p>
+    <p><strong>Дата создания:</strong> {{ order.created_at|date:"d.m.Y H:i" }}</p>
+    <p><strong>Последнее обновление:</strong> {{ order.updated_at|date:"d.m.Y H:i" }}</p>
+</div>
+
+<h3>Информация о клиенте</h3>
+<div class="card-block">
+    <p><strong>Имя:</strong> {{ order.client.full_name }}</p>
+    <p><strong>Телефон:</strong> {{ order.client.phone }}</p>
+
+    {% if order.client.email %}
+        <p><strong>Email:</strong> {{ order.client.email }}</p>
+    {% endif %}
+</div>
+
+<h3>Информация об устройстве</h3>
+<div class="card-block">
+    <p><strong>Устройство:</strong> {{ order.device.full_name }}</p>
+    <p><strong>Тип:</strong> {{ order.device.get_type_display }}</p>
+    <p><strong>Производитель:</strong> {{ order.device.brand }}</p>
+    <p><strong>Модель:</strong> {{ order.device.model }}</p>
+</div>
+
+<h3>Описание проблемы</h3>
+<div class="card-block">
+    <p>{{ order.problem_description }}</p>
+</div>
+
+{% if order.master %}
+<h3>Информация о ремонте</h3>
+<div class="card-block">
+    <p><strong>Мастер:</strong> {{ order.master.full_name }}</p>
+
+    {% if order.notes %}
+        <p><strong>Примечания:</strong> {{ order.notes }}</p>
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="back-btn">
+    <a href="{% url 'master_requests' %}" class="btn">Вернуться к списку</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="TechCare - профессиональный ремонт и обслуживание компьютеров, ноутбуков, планшетов и смартфонов. Быстрый и качественный сервис с гарантией."
+        />
+        <meta
+            name="keywords"
+            content="ремонт компьютеров, ремонт ноутбуков, ремонт планшетов, ремонт смартфонов, сервисный центр, компьютерная помощь, гарантия ремонта, TechCare"
+        />
+        <title>
+            {% block title %}TechCare - Ремонт техники с гарантией{% endblock %}
+        </title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+        {% block styles %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <img src="{% static 'images/logo.png' %}" alt="TechCare" />
+                    <h1>TechCare</h1>
+                </div>
+                <nav>
+                    {% block navigation %}
+                    <ul>
+                        <li><a href="{% url 'home' %}">Главная</a></li>
+                        <li>
+                            <a href="{% url 'client_order_list' %}"
+                                >Мои заявки</a
+                            >
+                        </li>
+                        <li>
+                            <a href="{% url 'client_create_order' %}"
+                                >Создать заявку</a
+                            >
+                        </li>
+                        <li><a href="{% url 'client_login' %}">Вход</a></li>
+                    </ul>
+                    {% endblock %}
+                </nav>
+            </header>
+            {% block content %} {% endblock %}
+
+            <footer>
+                <p>&copy; 2025 Сервис ремонта техники. Все права защищены.</p>
+            </footer>
+        </div>
+    </body>
+</html>
