@@ -20,22 +20,22 @@ class Order(models.Model):
       return f"ORD-{self.pk:05d}"
    @property
    def master_name(self):
-     return self.master.full_name if self.master else "Не назначен"
+     return self.master.fill_name if self.master else "Не назначен"
    @property
    def client_name(self):
-      return self.client.full_name
+      return self.client.fill_name
    @property
    def device_name(self):
       return f"{self.device.number} —{self.device.full_name}"
    @property
    def is_completed(self):
-      return self.status == self.status.COMPLETED
+      return self.status == self.OrderStatus.COMPLETED
    @property
-   def __str__(self):
-      return f"{self.number} {self.device.full_name}"
+   def full_name(self):
+      return f"{self.number} Клиент:{self.client.fill_name} Девайс:{self.device.full_name} Мастер:{self.master_name}"
    def __str__(self):
       if self.master:
-          return f"Заказ {self.number} - {self.status} {self.master.full_name} {self.updated_at}"
+          return f"Заказ {self.number} - {self.status} {self.master.fill_name} {self.updated_at}"
       return f"Заказ {self.number} - {self.status} {self.created_at}"
 class Estimate(models.Model):
    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='estimates', verbose_name='Заявка')

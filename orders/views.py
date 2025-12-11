@@ -21,7 +21,7 @@ def master_page(request):
     except User.DoesNotExist:
         return redirect('home')
 
-    if client.user_type != 'master':
+    if client.role != 'master':
         return redirect('home')
     recent_requests = Order.objects.all()
     context = {

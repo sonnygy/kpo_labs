@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from .models import User
+from warehouse.models import Device
+from orders.models import Order
 
 class UserRegisterForm(UserCreationForm):
   password1 = forms.CharField(label='Пароль',widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -44,4 +46,53 @@ class ClientContactForm(forms.ModelForm):
        'last_name': 'Фамилия',
        'phone': 'Телефон'
     }
-     
+
+class ClientForm(forms.ModelForm):
+  class Meta:
+    model = User
+    fields = ('first_name', 'last_name', 'phone')
+    widgets = {
+       'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+       'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+       'phone': forms.TextInput(attrs={'class': 'form-control'})
+    }
+    labels = {
+       'first_name': 'Имя',
+       'last_name': 'Фамилия',
+       'phone': 'Телефон'
+    }
+
+class ClientOrderForm(forms.ModelForm):
+  class Meta:
+    model = User
+    fields = ('first_name', 'last_name', 'phone')
+    widgets = {
+       'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+       'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+       'phone': forms.TextInput(attrs={'class': 'form-control'})
+    }
+    labels = {
+       'first_name': 'Имя',
+       'last_name': 'Фамилия',
+       'phone': 'Телефон'
+    }
+
+class DeviceForm(forms.ModelForm):
+  class Meta:
+    model = Device
+    fields = ('type', 'brand', 'model')
+    widgets = {
+       'type': forms.Select(attrs={'class': 'form-control'}),
+       'brand': forms.Select(attrs={'class': 'form-control'}),
+       'model': forms.TextInput(attrs={'class': 'form-control'})
+    }
+    labels = {
+       'type': 'Тип устройства',
+       'brand': 'Производитель',
+       'model': 'Модель'
+    }
+
+class OrderForm(forms.ModelForm):
+  class Meta:
+    model = Order
+    fields = ()

@@ -2,24 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from .models import User
-from .forms import UserRegistrationForm, UserLoginForm, ClientForm
-from orders.views import orders_list
+from .forms import UserRegisterForm, UserLoginForm, ClientForm, ClientOrderForm, DeviceForm, OrderForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 def get_client_for_user(user):
-  return User.objects.get(user=user)
+  return user
 @login_required
 def redirect_by_role(request):
     try:
         client = get_client_for_user(request.user)
     except User.DoesNotExist:
         return redirect('home')
-    if client.user_type == 'admin':
+    if client.role == 'admin':
         return redirect('admin_page')
-    if client.user_type == 'master':
+    if client.role == 'master':
         return redirect('master_page')
     return redirect('orders_list')
-
 #user
 def home(request):
   return render(request, "home.html")
@@ -38,13 +36,13 @@ def user_login(request):
   return render(request, 'login.html', {'form': form})
 def user_signup(request):
   if request.method == 'POST':
-    form = UserRegistrationForm(request.POST)
+    form = UserRegisterForm(request.POST)
     if form.is_valid():
       user = form.save()
       login(request, user)
       return redirect('redirect_by_role')
   else:
-    form = UserRegistrationForm()
+    form = UserRegisterForm()
   return render(request, 'sign_up.html', {'form': form})
 def create_order(request):
   if not request.user.is_authenticated:
@@ -90,4 +88,4 @@ class MasterListView(ListView):
   paginate_by = 10
 
   def get_queryset(self):
-      return User.objects.filter(user_type='master').order_by('last_name', 'first_name')
+      return User.objects.filter(role='master').order_by('last_name', 'first_name')
