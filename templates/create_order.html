@@ -14,68 +14,80 @@
   <div class="form">
     <form method="post">
       {% csrf_token %}
-  
-      <h3>Данные клиента</h3>
+      <div class="message">
+      {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+      {% endif %}
+      </div>
       {% if client_form.errors %}
-      {% for field in client_form %}
-          {% for error in field.errors %}
-              <li>{{ error }}</li>
-          {% endfor %}
-      {% endfor %}
-      {% for error in client_form.non_field_errors %}
-          <li>{{ error }}</li>
-      {% endfor %}
+      <ul class="errors">
+        {% for field in client_form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in client_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
       <div class="form-item">
-        <label for="{{ client_form.last_name.id_for_label }}" class="form-label">{{ client_form.last_name.label }}
-        </label>
+        <label for="{{ client_form.last_name.id_for_label }}" class="form-label">{{ client_form.last_name.label }}</label>
         {{ client_form.last_name }}
       </div>
       <div class="form-item">
-        <label for="{{ client_form.first_name.id_for_label }}" class="form-label">{{ client_form.first_name.label }}
-        </label>
+        <label for="{{ client_form.first_name.id_for_label }}" class="form-label">{{ client_form.first_name.label }}</label>
         {{ client_form.first_name }}
       </div>
       <div class="form-item">
-        <label for="{{ client_form.phone.id_for_label }}" class="form-label">{{ client_form.phone.label }}
-        </label>
+        <label for="{{ client_form.phone.id_for_label }}" class="form-label">{{ client_form.phone.label }}</label>
         {{ client_form.phone }}
       </div>
-      <h3>Устройство</h3>
-      {% if form.errors %}
-      {% for field in form %}
-          {% for error in field.errors %}
-              <li>{{ error }}</li>
-          {% endfor %}
-      {% endfor %}
-      {% for error in form.non_field_errors %}
-          <li>{{ error }}</li>
-      {% endfor %}
+      {% if device_form.errors %}
+      <ul class="errors">
+        {% for field in device_form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in device_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
       <div class="form-item">
-        <label for="{{ device_form.type.id_for_label }}" class="form-label">{{ device_form.type.label }}
-        </label>
+        <label for="{{ device_form.type.id_for_label }}" class="form-label">{{ device_form.type.label }}</label>
         {{ device_form.type }}
       </div>
-      <h3>Проблема</h3>
-      {% if form.errors %}
-      {% for field in form %}
-          {% for error in field.errors %}
-              <li>{{ error }}</li>
-          {% endfor %}
-      {% endfor %}
-      {% for error in form.non_field_errors %}
-          <li>{{ error }}</li>
-      {% endfor %}
+      <div class="form-item">
+        <label for="{{ device_form.brand.id_for_label }}" class="form-label">{{ device_form.brand.label }}</label>
+        {{ device_form.brand }}
+      </div>
+      <div class="form-item">
+        <label for="{{ device_form.model.id_for_label }}" class="form-label">{{ device_form.model.label }}</label>
+        {{ device_form.model }}
+      </div>
+      {% if order_form.errors %}
+      <ul class="errors">
+        {% for field in order_form %}
+            {% for error in field.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        {% for error in order_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
       {% endif %}
       <div class="form-item">
-        <label for="{{order_form.description.id_for_label }}" class="form-label">{{ order_form.description.label }}
-        </label>
-        {{ order_form.description }}
+        <label for="{{ order_form.problem_description.id_for_label }}" class="form-label">{{ order_form.problem_description.label }}</label>
+        {{ order_form.problem_description }}
       </div>
-  
+
       <button type="submit">Создать заказ</button>
-      <a href="{% url 'home' %}">Отмена</a>
+      <a href="{% url 'home' %}" class="btn">Отмена</a>
     </form>
   </div>
 </div>

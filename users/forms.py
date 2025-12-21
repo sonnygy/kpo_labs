@@ -20,33 +20,14 @@ class UserRegisterForm(UserCreationForm):
     }
   
 class UserLoginForm(AuthenticationForm):
-  class Meta:
-    model = User
-    fields = ('username', 'password')
-    widgets = {
-      'username': forms.TextInput(attrs={'class': 'form-control'}),
-      'password': forms.PasswordInput(attrs={'class': 'form-control'})
-    }
-    labels  = {
-      'username': 'Имя пользователя',
-      'password': 'Пароль'
-    }
-
-class ClientContactForm(forms.ModelForm):
-  class Meta:
-    model = User
-    fields = ('first_name', 'last_name', 'phone')
-    widgets = {
-       'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-       'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-       'phone': forms.TextInput(attrs={'class': 'form-control'})
-    }
-    labels  = {
-       'first_name': 'Имя',
-       'last_name': 'Фамилия',
-       'phone': 'Телефон'
-    }
-
+  username = forms.CharField(
+    label='Имя пользователя',
+    widget=forms.TextInput(attrs={'class': 'form-control'})
+  )
+  password = forms.CharField(
+    label='Пароль',
+    widget=forms.PasswordInput(attrs={'class': 'form-control'})
+  )
 class ClientForm(forms.ModelForm):
   class Meta:
     model = User
@@ -61,38 +42,3 @@ class ClientForm(forms.ModelForm):
        'last_name': 'Фамилия',
        'phone': 'Телефон'
     }
-
-class ClientOrderForm(forms.ModelForm):
-  class Meta:
-    model = User
-    fields = ('first_name', 'last_name', 'phone')
-    widgets = {
-       'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-       'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-       'phone': forms.TextInput(attrs={'class': 'form-control'})
-    }
-    labels = {
-       'first_name': 'Имя',
-       'last_name': 'Фамилия',
-       'phone': 'Телефон'
-    }
-
-class DeviceForm(forms.ModelForm):
-  class Meta:
-    model = Device
-    fields = ('type', 'brand', 'model')
-    widgets = {
-       'type': forms.Select(attrs={'class': 'form-control'}),
-       'brand': forms.Select(attrs={'class': 'form-control'}),
-       'model': forms.TextInput(attrs={'class': 'form-control'})
-    }
-    labels = {
-       'type': 'Тип устройства',
-       'brand': 'Производитель',
-       'model': 'Модель'
-    }
-
-class OrderForm(forms.ModelForm):
-  class Meta:
-    model = Order
-    fields = ()

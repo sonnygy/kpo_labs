@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Составить смету - Сервис ремонта техники{% endblock %}
+
+{% block navigation %}
+    {% include "nav/nav_master.html" %}
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Составить смету</h2>
+    <div class="form">
+        <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+        <ul class="errors">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="form-item">
+            <label for="{{ form.parts_cost.id_for_label }}" class="form-label">{{ form.parts_cost.label}}</label>
+            {{ form.parts_cost }}
+        </div>
+        <div class="form-item">
+            <label for="{{ form.labor_cost.id_for_label }}" class="form-label">{{ form.labor_cost.label}}</label>
+            {{ form.labor_cost }}
+        </div>
+        <div class="form-item">
+            <label for="{{ form.notes.id_for_label }}" class="form-label">{{ form.notes.label}}</label>
+            {{ form.notes }}
+        </div>
+        <button type="submit" class="btn">Сохранить изменения</button>
+        </form>
+        <div class="back-btn">
+            <a href="{% url 'master_orders' %}" class="btn">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

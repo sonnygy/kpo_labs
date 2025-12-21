@@ -13,6 +13,7 @@
     <h2>Вход в систему</h2>
     <div class ="form">
         <form method="post">
+            {% csrf_token %}
             {% if form.errors %}
                 <p>Неверный логин или пароль. Попробуйте снова.</p>
             {% endif %}
@@ -34,7 +35,7 @@
             </div>
             <button type="submit">Войти</button>
             </form>
-        <p>Нет аккаунта? <a href="{% url 'client_signup' %}">Зарегистрироваться</a></p>
+        <p>Нет аккаунта? <a href="{% url 'user_signup' %}">Зарегистрироваться</a></p>
     </div>
 </div>
 {% endblock %}

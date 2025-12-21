@@ -104,3 +104,6 @@ button[type="submit"]:active {
   filter: brightness(75%);
   text-decoration: underline;
 }
+.messages {
+  margin_bottom: 20px;
+}

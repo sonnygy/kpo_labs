@@ -29,8 +29,11 @@ ALLOWED_HOSTS = os.environ["REPLIT_DOMAINS"].split(',')
 CSRF_TRUSTED_ORIGINS = [
     "https://" + domain for domain in os.environ["REPLIT_DOMAINS"].split(',')
 ]
-
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = None
 # Application definition
+AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -90,7 +93,6 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -113,6 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
+LANGUAGE_CODE = 'ru-ru'
+
+TIME_ZONE = 'Europe/Moscow'
 
 LANGUAGE_CODE = 'en-us'
 

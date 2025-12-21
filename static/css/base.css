@@ -1,4 +1,11 @@
-* {
+@media (max-width: 1200px) {
+  body {
+    min-width: 1200px;
+    overflow-x: auto;
+  }
+}
+
+html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -96,11 +103,6 @@ nav a:hover {
 .status.in_progress {
     background: #fff8e6;
     color: #b35c00;
-}
-
-.status.waiting_parts {
-    background: #faf0f5;
-    color: #6d4a52;
 }
 
 .status.completed {

@@ -1,7 +1,16 @@
+.table-container{
+  width: 90%;
+  margin: 0 auto;
+  padding: 60px 0;
+  gap: 40px;
+}
+
 table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
+  border-radius: 10px;
   margin: 30px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
@@ -18,4 +27,125 @@ th {
 
 tr:hover {
   background: #f8f9fa;
+}
+
+.assign-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.assign-form select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  font-size: 0.95em;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 160px;
+}
+
+.assign-form select:hover {
+  border-color: #de9e36;
+}
+
+.assign-form select:focus {
+  outline: none;
+  border-color: #de9e36;
+  box-shadow: 0 0 0 3px rgba(222, 158, 54, 0.25);
+}
+
+.assign-form button {
+  padding: 8px 18px;
+  background: #de9e36;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.assign-form button:hover {
+  filter: brightness(90%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.assign-form button:active {
+  transform: translateY(0);
+}
+
+tr.no-master {
+  background-color: #fff8f1;
+}
+.no_data {
+  padding: 20px;
+  font-size: 1.6em;
+  color: #666
+}
+.table_actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.table_button { 
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #de9e36;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.table_button:hover {
+  background: #de9e36;
+  filter: brightness(85%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.table_button:active {
+  transform: translateY(0);
+}
+.table_btn{
+  width: 80%;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #999;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 0.85em;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.table_btn:hover {
+   background: #999;
+   filter: brightness(85%);
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.table_btn:active {
+  transform: translateY(0);
+}
+.page_btn {
+  color: #848383;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.page_btn:hover {
+  filter: brightness(75%);
+  text-decoration: underline;
 }

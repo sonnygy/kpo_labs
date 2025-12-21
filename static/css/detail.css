@@ -1,0 +1,43 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px 40px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.detail {
+  margin: 0 auto;
+  width: 80%;
+}
+.detail h3 {
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #222;
+}
+.detail h2 {
+  text-align: left;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #282828;
+}
+.detail p {
+  text-align: left;
+  line-height: 1.5;
+  color: #333;
+}
+.back-btn {
+  margin-top: 1.5em;
+  color: #848383;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.back-btn:hover {
+  filter: brightness(75%);
+  text-decoration: underline;
+}

@@ -31,22 +31,22 @@
                     <ul>
                         <li><a href="{% url 'home' %}">Главная</a></li>
                         <li>
-                            <a href="{% url 'client_order_list' %}"
+                            <a href="{% url 'orders_list' %}"
                                 >Мои заявки</a
                             >
                         </li>
                         <li>
-                            <a href="{% url 'client_create_order' %}"
+                            <a href="{% url 'create_order' %}"
                                 >Создать заявку</a
                             >
                         </li>
-                        <li><a href="{% url 'client_login' %}">Вход</a></li>
+                        <li><a href="{% url 'user_login' %}">Вход</a></li>
                     </ul>
                     {% endblock %}
                 </nav>
             </header>
             {% block content %} {% endblock %}
-
+            {% block scripts %} {% endblock %}
             <footer>
                 <p>&copy; 2025 Сервис ремонта техники. Все права защищены.</p>
             </footer>

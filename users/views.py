@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout
 from .models import User
-from .forms import UserRegisterForm, UserLoginForm, ClientForm, ClientOrderForm, DeviceForm, OrderForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from .forms import UserRegisterForm, UserLoginForm, ClientForm
+from warehouse.forms import DeviceForm
+from orders.forms import OrderForm
+from django.contrib import messages
 
 def get_client_for_user(user):
   return user
@@ -21,18 +23,16 @@ def redirect_by_role(request):
 #user
 def home(request):
   return render(request, "home.html")
+
 def user_login(request):
   if request.method == 'POST':
-    form = UserLoginForm(request.POST)
-    if form.is_valid():
-      username = form.cleaned_data['username']
-      password = form.cleaned_data['password']
-      user = authenticate(request, username=username, password=password)
-      if user is not None:
-        login(request, user)
-        return redirect('redirect_by_role')
+      form = UserLoginForm(request, data=request.POST)
+      if form.is_valid():
+          user = form.get_user()
+          login(request, user)
+          return redirect('redirect_by_role')
   else:
-    form = UserLoginForm()
+      form = UserLoginForm()
   return render(request, 'login.html', {'form': form})
 def user_signup(request):
   if request.method == 'POST':
@@ -44,48 +44,65 @@ def user_signup(request):
   else:
     form = UserRegisterForm()
   return render(request, 'sign_up.html', {'form': form})
+def user_logout(request):
+    logout(request)
+    return redirect('home')
 def create_order(request):
-  if not request.user.is_authenticated:
-    return redirect('user_login')
-  client = get_client_for_user(request.user)
-  if request.method == 'POST':
-    client_form = ClientForm(request.POST, instance=client)
-    device_form = DeviceForm(request.POST)
-    order_form = OrderForm(request.POST)
-    if client_form.is_valid() and device_form.is_valid() and order_form.is_valid():
-      client.first_name = client_form.cleaned_data['first_name']
-      client.last_name = client_form.cleaned_data['last_name']
-      client.phone = client_form.cleaned_data['phone']
-      device = device_form.save()
-      order = order_form.save(commit=False)
-      client_form.save()
-      order.client = client
-      order.device = device
-      order.save()
-      return redirect('create_order_success')
-  else:
-    client_form = ClientOrderForm(initial={
-    'first_name': client.first_name,
-    'last_name': client.last_name,
-    'phone': client.phone,
+    if not request.user.is_authenticated:
+        messages.error(
+            request,
+            'Для оформления заявки необходимо войти или зарегистрироваться'
+        )
+        client_form = ClientForm()
+        device_form = DeviceForm()
+        order_form = OrderForm()
+
+        return render(request, 'create_order.html', {
+            'client_form': client_form,
+            'device_form': device_form,
+            'order_form': order_form,
+        })
+    client = request.user
+
+    if request.method == 'POST':
+        client_form = ClientForm(request.POST, instance=client)
+        device_form = DeviceForm(request.POST)
+        order_form = OrderForm(request.POST)
+
+        if client_form.is_valid() and device_form.is_valid() and order_form.is_valid():
+            client_form.save()
+            device = device_form.save()
+
+            order = order_form.save(commit=False)
+            order.client = client
+            order.device = device
+            order.save()
+
+            return redirect('create_order_success')
+    else:
+        client_form = ClientForm(instance=client)
+        device_form = DeviceForm()
+        order_form = OrderForm()
+
+    return render(request, 'create_order.html', {
+        'client_form': client_form,
+        'device_form': device_form,
+        'order_form': order_form,
     })
-    device_form = DeviceForm()
-    order_form = OrderForm()
-  
-  return render(request, 'create_order.html', {
-      'client_form': client_form,
-      'device_form': device_form,
-      'order_form': order_form,
-  })
 def create_order_success(request):
   return render(request, 'create_order_success.html')
 
 #admin
-class MasterListView(ListView):
-  model = User
-  template_name = 'administrator/masters.html'
-  context_object_name = 'masters'
-  paginate_by = 10
-
-  def get_queryset(self):
-      return User.objects.filter(role='master').order_by('last_name', 'first_name')
+@login_required(login_url='user_login')
+def master_home(request):
+    client = request.user
+    if client.role != 'master':
+        return redirect('home')
+    return render(request, "master/home.html")
+#master
+@login_required(login_url='user_login')
+def admin_home(request):
+    client = request.user
+    if client.role != 'admin':
+        return redirect('home')
+    return render(request, "administrator/home.html")

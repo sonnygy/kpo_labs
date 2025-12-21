@@ -1,6 +1,7 @@
 <ul>
-    <li><a href="{% url 'administrator:home' %}">Главная</a></li>
-    <li><a href="{% url 'administrator:masters' %}">Мастера</a></li>
-    <li><a href="{% url 'administrator:warehouse' %}">Склад</a></li>
+    <li><a href="{% url 'admin_page' %}">Главная</a></li>
+    <li><a href="{% url 'admin_orders' %}">Заказы</a></li>
+    <li><a href="{% url 'warehouse_list' %}">Склад</a></li>
     <li><a href="{% url 'admin:index' %}">Админ-панель</a></li>
+    <li><a href="{% url 'user_login' %}">Вход</a></li>
 </ul>
