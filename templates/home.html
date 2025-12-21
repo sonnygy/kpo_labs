@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная - Сервис ремонта техники{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+{% block content %}
+<main class="main">
+    <div class="container">
+      <div class="main__content">
+        <div class="main__text-content">
+        <h1 class="main__title">Ремонт техники с гарантией качества</h1>
+        <p class="main__text">Профессиональный ремонт компьютеров, ноутбуков, планшетов и смартфонов любой сложности. Мы предлагаем быстрый и качественный сервис с гарантией до года. Оставьте заявку онлайн, и наш мастер свяжется с вами в течение 30 минут!</p>
+        <a class="main__button" href="{% url 'create_order' %}">Оставить заявку</a>
+        </div>
+        <div class="main__image">
+          <img src="{% static 'images/client_main.png'%}" alt="Профессиональный ремонт техники в сервисном центре TechCare">
+        </div>
+      </div>
+      <div class="main__services">
+        <h2 class="main__services-title">Наши услуги</h2>
+        <div class="services__grid">
+            <div class="service__card">
+              <div class="service__icon">
+                <img src = "{% static 'images/computer.svg'%}">
+              </div>
+              <h3 class="service__title">Ремонт компьютеров</h3>
+              <p class="service__description">Диагностика и ремонт стационарных компьютеров, замена комплектующих, установка программного обеспечения</p>
+            </div>
+
+            <div class="service__card">
+              <div class="service__icon">
+                <img src = "{% static 'images/laptop.svg'%}">
+              </div>
+              <h3 class="service__title">Ремонт ноутбуков</h3>
+              <p class="service__description">Чистка, замена матриц, ремонт клавиатур, восстановление после залития, ремонт материнских плат</p>
+            </div>
+
+            <div class="service__card">
+              <div class="service__icon">
+                <img src = "{% static 'images/smartphone.svg'%}">
+              </div>
+              <h3 class="service__title">Ремонт смартфонов</h3>
+              <p class="service__description">Замена дисплеев, аккумуляторов, ремонт разъемов, восстановление после падения, программный ремонт</p>
+            </div>
+
+            <div class="service__card">
+              <div class="service__icon">
+                <img src = "{% static 'images/tablet.svg'%}">
+              </div>
+              <h3 class="service__title">Ремонт планшетов</h3>
+              <p class="service__description">Ремонт экранов, замена корпусов, восстановление touch-панелей, ремонт плат управления</p>
+            </div>
+          </div>
+        </div>
+      <div class="main__about">
+        <div class="about__image">
+          <img src="{% static 'images/about.jpg'%}" alt="Сервисный центр TechCare">
+        </div>
+        <div class="about__container">
+            <h2 class="about__title">О нас</h2>
+            <p class="about__text">
+                TechCare — это сервисный центр с более чем 10-летним опытом работы в сфере ремонта техники.
+            </p>
+            <p class="about__text">
+                 Наша миссия — сделать ремонт техники простым и удобным для каждого клиента. Мы ценим ваше время и доверие, поэтому работаем максимально прозрачно и честно. С TechCare ваша техника в надежных руках!
+            </p>
+        </div>
+      </div>
+      <div class="main__advantages">
+          <h2 class="advantages__title">Почему выбирают нас
+          </h2>
+          <div class="advantages__list">
+            <div class="advantage__item">
+              <div class="advantage__icon">
+              <img src = "{% static 'images/time.svg'%}">
+              </div>
+              <div class="advantage__content">
+                <h3>Быстрый ремонт</h3>
+                <p>Большинство ремонтов выполняем в течение 1-3 дней</p>
+              </div>
+            </div>
+
+            <div class="advantage__item">
+              <div class="advantage__icon">
+              <img src = "{% static 'images/shield.svg'%}">
+              </div>
+              <div class="advantage__content">
+                <h3>Гарантия качества</h3>
+                <p>Предоставляем гарантию до года на все виды работ</p>
+              </div>
+            </div>
+
+            <div class="advantage__item">
+              <div class="advantage__icon">
+              <img src = "{% static 'images/worker.svg'%}">
+              </div>
+              <div class="advantage__content">
+                <h3>Опытные мастера</h3>
+                <p>Работают специалисты с опытом от 5 лет</p>
+              </div>
+            </div>
+
+            <div class="advantage__item">
+              <div class="advantage__icon">
+              <img src = "{% static 'images/verify.svg'%}">
+              </div>
+              <div class="advantage__content">
+                <h3>Оригинальные запчасти</h3>
+                <p>Используем только качественные комплектующие</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="main__contact">
+        <h2 class="contact__title">Контакты</h2>
+        <div class="contact__grid">
+          <div class="contact__info">
+            <div class="contact__text">
+              <p><strong>Адрес:</strong> г. Зеленоград, ул. Примерная, 10</p>
+            </div>
+            <div class="contact__text">
+              <p><strong>Телефон:</strong> +7 (123) 456-78-90</p>
+            </div>
+            <div class="contact__text">
+              <p><strong>Email:</strong> info@techcare.ru</p>
+            </div>
+            <div class="contact__text">
+              <p><strong>Режим работы:</strong> Пн-Пт: 10:00-20:00, Сб-Вс: 11:00-18:00</p>
+            </div>
+          </div>
+          <div class="contact__map">
+            <img src = "{% static 'images/map.jpg'%}">
+          </div>
+          </div>
+        </div>
+<script src="script.js">
+</script>
+</main>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная - Сервис ремонта техники{% endblock %}
+
+{% block navigation %}
+    {% include "nav/nav_master.html" %}
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/tables.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    <h2>Добро пожаловать!</h2>
+    <p>Система управления заявками на ремонт техники.</p>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <p>Всего заявок</p>
+            <h3>{{ total_requests }}</h3>
+        </div>
+        <div class="stat-card">
+            <p>Новые заявки</p>
+            <h3>{{ new_requests }}</h3>
+        </div>
+        <div class="stat-card">
+            <p>В работе</p>
+            <h3>{{ in_progress }}</h3>
+        </div>
+        <div class="stat-card">
+            <p>Отменены</p>
+            <h3>{{ cancelled }}</h3>
+        </div>
+        <div class="stat-card">
+            <p>Завершено</p>
+            <h3>{{ completed }}</h3>
+        </div>
+    </div>
+    
+    <h3>Последние заявки</h3>
+    
+    {% if orders %}
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Устройство</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+                <th>Дата изменения</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.number }}</td>
+                <td>{{ order.device }}</td>
+                <td>
+                    <span class="status {{ req.status }}">
+                        {{ order.get_status_display }}
+                    </span>
+                </td>
+                <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                <td>{{ order.updated_at|date:"d.m.Y H:i" }}</td>
+                <td>{{ order.problem_description|truncatechars:40 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Заявок пока нет.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Все заявки - Сервис ремонта техники{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/tables.css' %}">
+<link rel="stylesheet" href="{% static 'css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="table-container">
+    {% if orders %}
+    <h2>Все заявки на ремонт</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Устройство</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+                <th>Дата завершения</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.device_view }}</td>
+                <td><span class="status {{ order.status }}">{{ order.get_status_display }}</span></td>
+                <td>{{ order.created_at|date:"d.m.Y H:i" }}</td>
+                <td>{{ order.completed_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class = "fail-container">
+            <div class = "fail-text">
+                <h3>Заявок пока нет.</h3>
+                <p>Оставьте заявку на нашем сайте и мы свяжемся с вами в ближайшее время!</p>
+                <a class="btn" href="{% url 'create_order' %}" class="btn">Создать заявку</a>
+            </div>
+            <div class="fail-img">
+                <img src = "{% static 'images/no_orders.jpg' %}" alt="Нет заявок">
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

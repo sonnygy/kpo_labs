@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Панель администратора - Сервис ремонта техники{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
+{% endblock %}
+{% block navigation %}
+{% include 'nav/nav_administrator.html' %}
+{% endblock %}
+{% block content %}
+<main class="main">
+  <div class="text-content">
+    <h1 class="title">Добро пожаловать в панель администратора</h1>
+    <p class="text">Здесь вы можете управлять заявками, пользователями и складом.</p>
+  </div>
+  <h2>Статистика</h2>
+  <div class="dashboard">
+    <div class="card">
+      <div class="card-title">
+        <h3>Всего заказов</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.total_orders }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <h3>Заказы без мастера</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.created_orders }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <h3>В процессе ремонта</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.in_progress_orders }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <h3>Завершенные заказы</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.completed_orders }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard">
+    <div class="card">
+      <div class="card-title">
+        <h3>Всего запчастей</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.total_parts }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <h3>Недостающих запчастей</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.missing_parts }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">
+        <h3>Мастеров</h3>
+      </div>
+      <div class="card-content">
+        <p>{{ stats.masters_count }}</p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

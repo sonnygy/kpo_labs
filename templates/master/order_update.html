@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Изменить заказ — Сервис ремонта техники{% endblock %}
+
+{% block navigation %}
+    {% include 'nav/nav_master.html' %}
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Изменить заказ {{ order.number }}</h2>
+    <div class="form">
+        <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+        <ul class="errors">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="form-item">
+            <label>{{ form.status.label }}</label>
+            {{ form.status }}
+            {{ form.status.errors }}
+        </div>
+
+        <div class="form-item">
+            <label>Использованные запчасти</label>
+
+            <select name="parts" id="id_parts" multiple>
+                {% for part in form.parts.field.queryset %}
+                    <option value="{{ part.id }}"
+                        {% if part in order.parts.all %}selected{% endif %}
+                    >
+                        {{ part.full_name }} (остаток: {{ part.quantity }})
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="button" id="add-part-btn">Добавить ещё</button>
+        </div>
+
+        <div class="form-item">
+            <label>{{ form.problem_description.label }}</label>
+            {{ form.problem_description }}
+            {{ form.problem_description.errors }}
+        </div>
+        <button type="submit" class="btn">Сохранить изменения</button>
+        </form>
+        <div class="back-btn">
+            <a href="{% url 'master_orders' %}" class="btn">Вернуться к списку</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const addBtn = document.getElementById('add-part-btn');
+    const select = document.getElementById('id_parts');
+
+    if (addBtn && select) {
+        addBtn.addEventListener('click', function () {
+            select.size = select.options.length;
+            select.focus();
+        });
+    }
+});
+</script>
+{% endblock %}
